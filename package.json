@@ -78,7 +78,7 @@
   },
   "scripts": {
     "clean": "rm -rf ./dist",
-    "start": "node app.js",
+    "start": "node app.js -p 80",
     "lint": "eslint platform example src --ext .js,.vue openmct.js",
     "lint:fix": "eslint platform example src --ext .js,.vue openmct.js --fix",
     "build:prod": "cross-env NODE_ENV=production webpack",

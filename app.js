@@ -14,9 +14,22 @@ const app = express();
 const fs = require('fs');
 const request = require('request');
 
+function GetIp() {
+	return require('os').networkInterfaces()[Object.keys(require('os').networkInterfaces())[0]][1]
+				[Object.keys(require('os').networkInterfaces()[Object.keys(require('os').networkInterfaces())[0]][1])[0]]
+}
+
+var addr;
+
+if (GetIp() === '') {
+	addr = 'localhost';
+} else {
+	addr = GetIp();
+}
+
 // Defaults
 options.port = options.port || options.p || 8080;
-options.host = options.host || 'localhost';
+options.host = options.host || addr;
 options.directory = options.directory || options.D || '.';
 
 // Show command line options
