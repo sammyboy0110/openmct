@@ -14,22 +14,21 @@ const app = express();
 const fs = require('fs');
 const request = require('request');
 
-function GetIp() {
-	return require('os').networkInterfaces()[Object.keys(require('os').networkInterfaces())[0]][1]
-				[Object.keys(require('os').networkInterfaces()[Object.keys(require('os').networkInterfaces())[0]][1])[0]]
-}
-
-var addr;
-
-if (GetIp() === '') {
-	addr = 'localhost';
-} else {
-	addr = GetIp();
+function GetIp() {			
+	var len = Object.keys(require('os').networkInterfaces()).length-1;
+	for (var i = 0; i < len; i++) {
+		var adress = require('os').networkInterfaces()[Object.keys(require('os').networkInterfaces())[i]][1]
+							[Object.keys(require('os').networkInterfaces()[Object.keys(require('os').networkInterfaces())[0]][1])[0]];
+		if (!(adress[0] === '1' && adress[1] === '9' && adress[2] === '2' && adress[3] === '.' && adress[4] === '1' && adress[5] === '6' && adress[6] === '8')) {
+			return adress;
+		}
+	}
+	return 'localhost';
 }
 
 // Defaults
 options.port = options.port || options.p || 8080;
-options.host = options.host || addr;
+options.host = options.host || GetIp();
 options.directory = options.directory || options.D || '.';
 
 // Show command line options
